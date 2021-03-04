@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from game.game_object import GameObject
+from survival.game_object import GameObject
 
 
 class Player(GameObject):

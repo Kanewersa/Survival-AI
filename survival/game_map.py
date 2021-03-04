@@ -3,10 +3,10 @@ import os
 import pygame
 from pygame.rect import Rect
 
-from game.player import Player
-from game.quad_tree import QuadTree
-from game.stone import Stone
-from game.tile import Tile
+from survival.player import Player
+from survival.quad_tree import QuadTree
+from survival.stone import Stone
+from survival.tile import Tile
 
 
 class GameMap:

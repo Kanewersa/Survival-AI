@@ -1,6 +1,6 @@
 import pygame
 
-from game.game_map import GameMap
+from survival.game_map import GameMap
 
 window_width = 1280
 window_height = 720

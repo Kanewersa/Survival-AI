@@ -1,6 +1,6 @@
 import os
 
-from game.game_object import GameObject
+from survival.game_object import GameObject
 
 
 class Stone(GameObject):
