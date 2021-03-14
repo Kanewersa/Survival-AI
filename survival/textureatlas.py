@@ -4,15 +4,19 @@ import pygame
 class TextureAtlas(object):
     def __init__(self, filename):
         self.atlas = pygame.image.load(filename).convert()
+        self.images = {}
 
     def image_at(self, origin, target, color_key=None):
+        if origin in self.images:
+            return self.images[origin]
         rect = pygame.Rect(origin, target)
         image = pygame.Surface(rect.size).convert()
         image.blit(self.atlas, (0, 0), rect)
         if color_key is not None:
-            if color_key is -1:
+            if color_key == -1:
                 color_key = image.get_at((0, 0))
             image.set_colorkey(color_key, pygame.RLEACCEL)
+        self.images[origin] = image
         return image
 
     def images_at(self, rects, color_key=None):
