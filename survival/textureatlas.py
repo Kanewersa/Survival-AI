@@ -5,8 +5,8 @@ class TextureAtlas(object):
     def __init__(self, filename):
         self.atlas = pygame.image.load(filename).convert()
 
-    def image_at(self, rectangle, color_key=None):
-        rect = pygame.Rect(rectangle)
+    def image_at(self, origin, target, color_key=None):
+        rect = pygame.Rect(origin, target)
         image = pygame.Surface(rect.size).convert()
         image.blit(self.atlas, (0, 0), rect)
         if color_key is not None:
