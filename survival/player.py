@@ -1,4 +1,4 @@
-import os
+from random import randint
 
 import pygame
 
@@ -14,6 +14,7 @@ class Player:
         self.origin = (0, 0)
         self.speed = 3
         self.movement_target = [self.pos[0], self.pos[1]]
+        self.timer = 0
 
     def draw(self, window):
         if self.is_moving():
@@ -31,6 +32,16 @@ class Player:
     def is_moving(self):
         return self.pos != self.movement_target
 
+    def get_random_direction(self):
+        value = randint(0, 3)
+        random_movement = {
+            0: self.move_up,
+            1: self.move_down,
+            2: self.move_left,
+            3: self.move_right
+        }
+        random_movement[value]()
+
     def update(self, delta, pressed_keys):
         if self.is_moving():
             if self.velocity[0] != 0:
@@ -45,16 +56,33 @@ class Player:
                     self.pos = self.movement_target
             return
 
-        if pressed_keys[pygame.K_LEFT]:
-            self.velocity = [-1, 0]
-            self.movement_target = [self.pos[0] - 32, self.pos[1]]
-        elif pressed_keys[pygame.K_RIGHT]:
-            self.velocity = [1, 0]
-            self.movement_target = [self.pos[0] + 32, self.pos[1]]
-        elif pressed_keys[pygame.K_DOWN]:
-            self.velocity = [0, 1]
-            self.movement_target = [self.pos[0], self.pos[1] + 32]
-        elif pressed_keys[pygame.K_UP]:
-            self.velocity = [0, -1]
-            self.movement_target = [self.pos[0], self.pos[1] - 32]
+        self.timer += delta
 
+        if self.timer > 1000:
+            self.get_random_direction()
+            self.timer = 0
+
+        if pressed_keys[pygame.K_LEFT]:
+            self.move_left()
+        elif pressed_keys[pygame.K_RIGHT]:
+            self.move_right()
+        elif pressed_keys[pygame.K_DOWN]:
+            self.move_down()
+        elif pressed_keys[pygame.K_UP]:
+            self.move_up()
+
+    def move_left(self):
+        self.velocity = [-1, 0]
+        self.movement_target = [self.pos[0] - 32, self.pos[1]]
+
+    def move_right(self):
+        self.velocity = [1, 0]
+        self.movement_target = [self.pos[0] + 32, self.pos[1]]
+
+    def move_up(self):
+        self.velocity = [0, -1]
+        self.movement_target = [self.pos[0], self.pos[1] - 32]
+
+    def move_down(self):
+        self.velocity = [0, 1]
+        self.movement_target = [self.pos[0], self.pos[1] + 32]
