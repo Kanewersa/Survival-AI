@@ -1,6 +1,4 @@
-import os
-
-from survival.textureatlas import TextureAtlas
+from survival.image import Image
 from survival.tile import Tile
 
 
@@ -9,16 +7,11 @@ class TileLayer:
         self.width = width
         self.height = height
         self.tiles = [[Tile() for x in range(self.width)] for y in range(self.height)]
-        self.atlas = TextureAtlas(os.path.join('..', 'assets', 'atlas.png'))
-        self.loadTiles()
-
-    def loadTiles(self):
-        for y in range(self.height):
-            for x in range(self.width):
-                self.tiles[y][x].image = self.atlas.image_at(self.tiles[y][x].origin, (32, 32))
+        self.image = Image('atlas.png')
 
     def draw(self, window):
         for y in range(self.height):
             for x in range(self.width):
-                if self.tiles[y][x] is not None:
-                    window.blit(self.tiles[y][x].image, (x * 32, y * 32))
+                self.image.pos = (x*32, y*32)
+                self.image.origin = self.tiles[y][x].origin
+                self.image.draw(window)

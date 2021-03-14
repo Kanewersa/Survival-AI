@@ -2,17 +2,31 @@ import os
 
 import pygame
 
-from survival.game_object import GameObject
+from survival.image import Image
 
 
-class Player(GameObject):
+class Player:
     def __init__(self):
-        super().__init__([0, 0], os.path.join('..', 'assets', 'player.png'))
+        self.pos = [0, 0]
+        self.velocity = [0, 0]
+        self.image = Image('stevenson.png')
+        self.image.set_scale(2)
+        self.origin = (0, 0)
         self.speed = 3
         self.movement_target = [self.pos[0], self.pos[1]]
 
     def draw(self, window):
-        super().draw(window)
+        if self.is_moving():
+            if self.velocity[0] == 1:
+                self.image.origin = (96, 0)
+            elif self.velocity[0] == -1:
+                self.image.origin = (64, 0)
+            elif self.velocity[1] == 1:
+                self.image.origin = (0, 0)
+            else:
+                self.image.origin = (32, 0)
+        self.image.pos = self.pos
+        self.image.draw(window)
 
     def is_moving(self):
         return self.pos != self.movement_target
