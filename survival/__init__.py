@@ -6,13 +6,13 @@ window_width = 1280
 window_height = 720
 
 
-def draw_game():
-    game_map.draw(win)
+def draw_game(delta):
+    game_map.draw(delta, win)
     pygame.display.update()
 
 
-def update_game(pressed_keys):
-    game_map.update(pressed_keys)
+def update_game(delta, pressed_keys):
+    game_map.update(delta, pressed_keys)
     pass
 
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     while run:
         # Set the framerate
-        clock.tick(60)
+        ms = clock.tick(60)
 
         events = pygame.event.get()
 
@@ -40,5 +40,5 @@ if __name__ == '__main__':
 
         keys = pygame.key.get_pressed()
 
-        draw_game()
-        update_game(keys)
+        draw_game(ms)
+        update_game(ms, keys)
