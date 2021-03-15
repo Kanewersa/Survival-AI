@@ -11,8 +11,9 @@ class GameMap:
         self.layers.append(TileLayer(width, height))
 
     def draw(self, camera):
+        visible_area = camera.get_visible_area()
         for layer in self.layers:
-            layer.draw(camera)
+            layer.draw(camera, visible_area)
         self.player.draw(camera)
 
     def update(self, camera, delta, pressed_keys):

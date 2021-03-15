@@ -17,7 +17,8 @@ class Camera:
         return pos[0] + self.camera.left, pos[1] + self.camera.top
 
     def get_visible_area(self):
-        pass
+        return Rect(-self.camera.left, -self.camera.top,
+                    SCREEN_WIDTH - self.camera.left, SCREEN_HEIGHT - self.camera.top)
 
     def update(self, target):
         x = -target.pos[0] + int(SCREEN_WIDTH / 2)
