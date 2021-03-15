@@ -16,7 +16,7 @@ class Image:
                                             (self.texture.get_width() * scale, self.texture.get_height() * scale))
         self.scale = scale
 
-    def draw(self, window):
-        window.blit(self.image, self.pos,
+    def draw(self, window, camera):
+        window.blit(self.image, camera.apply(self.pos),
                     pygame.Rect(self.origin[0] * self.scale, self.origin[1] * self.scale, 32 * self.scale,
                                 32 * self.scale))

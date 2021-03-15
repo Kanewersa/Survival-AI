@@ -1,31 +1,31 @@
 import pygame
 
+from settings import SCREEN_WIDTH, SCREEN_HEIGHT
+from survival.camera import Camera
 from survival.game_map import GameMap
-
-window_width = 1280
-window_height = 720
 
 
 def draw_game(delta):
-    game_map.draw(delta, win)
+    win.fill((0, 0, 0))
+    game_map.draw(camera)
     pygame.display.update()
 
 
 def update_game(delta, pressed_keys):
-    game_map.update(delta, pressed_keys)
+    game_map.update(camera, delta, pressed_keys)
     pass
 
 
 if __name__ == '__main__':
     pygame.init()
 
-    win = pygame.display.set_mode((window_width, window_height))
+    win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("AI Project")
 
     clock = pygame.time.Clock()
 
-    game_map = GameMap(int(window_width/32), int(window_height/32) + 1)
-
+    game_map = GameMap(int(SCREEN_WIDTH / 32) * 2, 2 * int(SCREEN_HEIGHT / 32) + 1)
+    camera = Camera(game_map.width * 32, game_map.height * 32, win)
     run = True
 
     while run:

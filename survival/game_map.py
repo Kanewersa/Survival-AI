@@ -7,11 +7,14 @@ class GameMap:
         self.width = width
         self.height = height
         self.player = Player()
-        self.tiles_layer = TileLayer(width, height)
+        self.layers = []
+        self.layers.append(TileLayer(width, height))
 
-    def draw(self, delta, window):
-        self.tiles_layer.draw(window)
-        self.player.draw(window)
+    def draw(self, camera):
+        for layer in self.layers:
+            layer.draw(camera)
+        self.player.draw(camera)
 
-    def update(self, delta, pressed_keys):
+    def update(self, camera, delta, pressed_keys):
         self.player.update(delta, pressed_keys)
+        camera.update(self.player)

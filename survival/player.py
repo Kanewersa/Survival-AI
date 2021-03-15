@@ -12,11 +12,11 @@ class Player:
         self.image = Image('stevenson.png')
         self.image.set_scale(2)
         self.origin = (0, 0)
-        self.speed = 3
+        self.speed = 30
         self.movement_target = [self.pos[0], self.pos[1]]
         self.timer = 0
 
-    def draw(self, window):
+    def draw(self, camera):
         if self.is_moving():
             if self.velocity[0] == 1:
                 self.image.origin = (96, 0)
@@ -27,12 +27,12 @@ class Player:
             else:
                 self.image.origin = (32, 0)
         self.image.pos = self.pos
-        self.image.draw(window)
+        camera.draw(self.image)
 
     def is_moving(self):
         return self.pos != self.movement_target
 
-    def get_random_direction(self):
+    def move_in_random_direction(self):
         value = randint(0, 3)
         random_movement = {
             0: self.move_up,
@@ -59,7 +59,7 @@ class Player:
         self.timer += delta
 
         if self.timer > 1000:
-            self.get_random_direction()
+            #self.move_in_random_direction()
             self.timer = 0
 
         if pressed_keys[pygame.K_LEFT]:
