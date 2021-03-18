@@ -1,7 +1,9 @@
-import pygame
-from random import randrange
+import random
 
 
 class Tile:
-    def __init__(self):
-        self.background_id = randrange(4)
+    origins = [(0, 0), (32, 0), (64, 0), (96, 0)]
+
+    def __init__(self, origin=(0, 0)):
+        self.origin = random.choice(Tile.origins)
+        self.image = None
