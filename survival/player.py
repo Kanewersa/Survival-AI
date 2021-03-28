@@ -7,25 +7,17 @@ from survival.image import Image
 
 class Player:
     def __init__(self):
-        self.pos = [0, 0]
-        self.velocity = [0, 0]
-        self.image = Image('stevenson.png')
-        self.image.set_scale(2)
-        self.origin = (0, 0)
-        self.speed = 30
-        self.movement_target = [self.pos[0], self.pos[1]]
-        self.timer = 0
+        # self.pos = [1024, 512]
+        # self.velocity = [0, 0]
+        # self.image = Image('stevenson.png')
+        # self.image.set_scale(2)
+        # self.speed = 30
+        # self.movement_target = [self.pos[0], self.pos[1]]
+        # self.timer = 0
+        pass
 
     def draw(self, camera):
-        if self.is_moving():
-            if self.velocity[0] == 1:
-                self.image.origin = (96, 0)
-            elif self.velocity[0] == -1:
-                self.image.origin = (64, 0)
-            elif self.velocity[1] == 1:
-                self.image.origin = (0, 0)
-            else:
-                self.image.origin = (32, 0)
+
         self.image.pos = self.pos
         camera.draw(self.image)
 
@@ -59,7 +51,7 @@ class Player:
         self.timer += delta
 
         if self.timer > 1000:
-            #self.move_in_random_direction()
+            self.move_in_random_direction()
             self.timer = 0
 
         if pressed_keys[pygame.K_LEFT]:
