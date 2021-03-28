@@ -21,8 +21,8 @@ class Camera:
                     SCREEN_WIDTH - self.camera.left, SCREEN_HEIGHT - self.camera.top)
 
     def update(self, target):
-        x = -target.pos[0] + int(SCREEN_WIDTH / 2)
-        y = -target.pos[1] + int(SCREEN_HEIGHT / 2)
+        x = -target.position[0] + int(SCREEN_WIDTH / 2)
+        y = -target.position[1] + int(SCREEN_HEIGHT / 2)
 
         x = min(0, x)
         y = min(0, y)
