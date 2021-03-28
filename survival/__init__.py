@@ -9,6 +9,7 @@ from survival.components.movement_component import MovementComponent
 from survival.components.position_component import PositionComponent
 from survival.components.sprite_component import SpriteComponent
 from survival.game_map import GameMap
+from survival.player_generator import PlayerGenerator
 from survival.resource_generator import ResourceGenerator
 from survival.systems.camera_system import CameraSystem
 from survival.systems.collision_system import CollisionSystem
@@ -29,18 +30,7 @@ if __name__ == '__main__':
     camera = Camera(game_map.width * 32, game_map.height * 32, win)
 
     world = WorldGenerator().create_world(camera, game_map)
-
-    player = world.create_entity()
-    pos = PositionComponent([0, 0], [0, 0])
-    world.add_component(player, pos)
-    world.add_component(player, MovementComponent())
-    world.add_component(player, InputComponent())
-    camera_target = CameraTargetComponent(pos)
-    world.add_component(player, camera_target)
-    game_map.add_entity(player, pos)
-    sprite = SpriteComponent('stevenson.png')
-    sprite.set_scale(1)
-    world.add_component(player, sprite)
+    player = PlayerGenerator().create_player(world, game_map)
 
     ResourceGenerator(world, game_map).generate_resources()
 
