@@ -4,8 +4,7 @@ from survival.components.sprite_component import SpriteComponent
 
 
 class DrawSystem(esper.Processor):
-    def __init__(self, window, camera):
-        self.window = window
+    def __init__(self, camera):
         self.camera = camera
 
     def process(self, dt):
