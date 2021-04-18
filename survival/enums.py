@@ -25,3 +25,10 @@ class Direction(IntEnum):
             return -1, 0
         elif direction == Direction.RIGHT:
             return 1, 0
+
+    @staticmethod
+    def from_vector(vector):
+        if vector[0] == 0:
+            return Direction.DOWN if vector[1] == 1 else Direction.UP
+        else:
+            return Direction.LEFT if vector[0] == -1 else Direction.RIGHT

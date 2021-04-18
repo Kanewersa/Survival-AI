@@ -13,10 +13,13 @@ def valid_neighbor(n, game_map, visited):
 
 
 def breadth_first_search(game_map, start, target):
-    visited = [[False for _ in range(game_map.width)] for _ in range(game_map.height)]
+    visited = [[False for _ in range(game_map.height)] for _ in range(game_map.width)]
     q = Queue()
     came_from = dict()
-    came_from[start] = (-1, -1)
+    start = tuple(start)
+    target = tuple(target)
+
+    came_from[start] = None
 
     q.append(start)
     visited[start[0]][start[1]] = True
@@ -42,13 +45,14 @@ def breadth_first_search(game_map, start, target):
 
     path = list()
     current = target
-    if came_from.get(start, None) is not None:
-        path.append(start)
-        return path
 
     while current != start:
         path.append(current)
+        if current not in came_from:
+            path.clear()
+            return path
+
         current = came_from[current]
 
-    path.append(start)
+    path.reverse()
     return path

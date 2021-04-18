@@ -6,3 +6,9 @@ class PositionComponent:
         self.position = pos
         self.grid_position = grid_pos
         self.direction = Direction.DOWN
+
+    def rotate_left(self):
+        self.direction = Direction.rotate_left(self.direction)
+
+    def rotate_right(self):
+        self.direction = Direction.rotate_right(self.direction)
