@@ -1,21 +1,10 @@
 import pygame
 
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from survival import esper
 from survival.camera import Camera
-from survival.components.camera_target_component import CameraTargetComponent
-from survival.components.input_component import InputComponent
-from survival.components.movement_component import MovementComponent
-from survival.components.position_component import PositionComponent
-from survival.components.sprite_component import SpriteComponent
 from survival.game_map import GameMap
 from survival.player_generator import PlayerGenerator
 from survival.resource_generator import ResourceGenerator
-from survival.systems.camera_system import CameraSystem
-from survival.systems.collision_system import CollisionSystem
-from survival.systems.draw_system import DrawSystem
-from survival.systems.input_system import InputSystem
-from survival.systems.movement_system import MovementSystem
 from survival.world_generator import WorldGenerator
 
 if __name__ == '__main__':

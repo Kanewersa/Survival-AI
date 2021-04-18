@@ -2,8 +2,6 @@ from random import randint
 
 import pygame
 
-from survival.image import Image
-
 
 class Player:
     def __init__(self):

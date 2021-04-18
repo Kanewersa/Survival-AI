@@ -1,6 +1,4 @@
-from survival.components.position_component import PositionComponent
 from survival.entity_layer import EntityLayer
-from survival.player import Player
 from survival.tile_layer import TileLayer
 
 
