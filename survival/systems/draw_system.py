@@ -10,4 +10,5 @@ class DrawSystem(esper.Processor):
     def process(self, dt):
         for ent, (sprite, pos) in self.world.get_components(SpriteComponent, PositionComponent):
             sprite.image.pos = pos.position
+            sprite.image.origin = (32 * pos.direction.value, 0)
             self.camera.draw(sprite.image)
