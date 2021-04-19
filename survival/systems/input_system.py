@@ -19,9 +19,8 @@ class InputSystem(esper.Processor):
             if mouse[0] == 1:
                 pos = pygame.mouse.get_pos()
                 pos = (pos[0] - self.camera.camera.left, pos[1] - self.camera.camera.top)
-                if self.world.has_component(ent, PathfindingComponent):
-                    self.world.remove_component(ent, PathfindingComponent)
-                self.world.add_component(ent, PathfindingComponent(pos))
+                if not self.world.has_component(ent, PathfindingComponent):
+                    self.world.add_component(ent, PathfindingComponent(pos))
 
             if self.world.has_component(ent, MovingComponent):
                 continue
