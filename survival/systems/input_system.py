@@ -1,6 +1,7 @@
 import pygame
 
 from survival import esper
+from survival.components.direction_component import DirectionChangeComponent
 from survival.components.input_component import InputComponent
 from survival.components.moving_component import MovingComponent
 from survival.components.pathfinding_component import PathfindingComponent
@@ -25,8 +26,10 @@ class InputSystem(esper.Processor):
             if self.world.has_component(ent, MovingComponent):
                 continue
             if keys[pygame.K_LEFT]:
-                pos.rotate_left()
+                if not self.world.has_component(ent, DirectionChangeComponent):
+                    self.world.add_component(ent, DirectionChangeComponent(pos.rotate_left()))
             elif keys[pygame.K_RIGHT]:
-                pos.rotate_right()
+                if not self.world.has_component(ent, DirectionChangeComponent):
+                    self.world.add_component(ent, DirectionChangeComponent(pos.rotate_right()))
             elif keys[pygame.K_UP]:
                 self.world.add_component(ent, MovingComponent())

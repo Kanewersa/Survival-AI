@@ -1,6 +1,7 @@
 from survival import esper
 from survival.systems.camera_system import CameraSystem
 from survival.systems.collision_system import CollisionSystem
+from survival.systems.direction_system import DirectionSystem
 from survival.systems.draw_system import DrawSystem
 from survival.systems.input_system import InputSystem
 from survival.systems.movement_system import MovementSystem
@@ -19,5 +20,6 @@ class WorldGenerator:
         world.add_processor(DrawSystem(camera))
         world.add_processor(TimeSystem())
         world.add_processor(PathfindingMovementSystem(game_map), priority=3)
+        world.add_processor(DirectionSystem())
 
         return world

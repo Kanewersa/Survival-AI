@@ -1,4 +1,5 @@
 from survival.enums import Direction
+from survival.settings import DIRECTION_CHANGE_DELAY
 
 
 class PositionComponent:
@@ -6,9 +7,10 @@ class PositionComponent:
         self.position = pos
         self.grid_position = grid_pos
         self.direction = Direction.DOWN
+        self.direction_change_timer = DIRECTION_CHANGE_DELAY
 
     def rotate_left(self):
-        self.direction = Direction.rotate_left(self.direction)
+        return Direction.rotate_left(self.direction)
 
     def rotate_right(self):
-        self.direction = Direction.rotate_right(self.direction)
+        return Direction.rotate_right(self.direction)
