@@ -1,6 +1,4 @@
-from survival.components.position_component import PositionComponent
 from survival.entity_layer import EntityLayer
-from survival.player import Player
 from survival.tile_layer import TileLayer
 
 
@@ -25,4 +23,4 @@ class GameMap:
         self.entity_layer.remove_entity(pos)
 
     def is_colliding(self, pos):
-        return self.entity_layer.is_colliding(pos)
+        return pos[0] < 0 or pos[0] >= self.width or pos[1] < 0 or pos[1] >= self.height or self.entity_layer.is_colliding(pos)

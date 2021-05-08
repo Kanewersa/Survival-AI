@@ -13,23 +13,22 @@ class MovementSystem(esper.Processor):
         for ent, (mov, pos, moving, sprite) in self.world.get_components(MovementComponent, PositionComponent,
                                                                          MovingComponent,
                                                                          SpriteComponent):
-            if moving.direction[0] != 0:
-                pos.position[0] += moving.direction[0] * mov.speed * dt / 100
-                if abs(moving.movement_target[0] * 32 - pos.position[0]) < 0.1 * mov.speed:
-                    pos.position = [moving.movement_target[0] * 32, moving.movement_target[1] * 32]
-                    self.world.remove_component(ent, MovingComponent)
-            else:
-                pos.position[1] += moving.direction[1] * mov.speed * dt / 100
-                if abs(pos.position[1] - moving.movement_target[1] * 32) < 0.1 * mov.speed:
-                    pos.position = [moving.movement_target[0] * 32, moving.movement_target[1] * 32]
-                    self.world.remove_component(ent, MovingComponent)
 
-            if moving.direction[0] == 1:
-                sprite.image.origin = (96, 0)
-            elif moving.direction[0] == -1:
-                sprite.image.origin = (64, 0)
-            elif moving.direction[1] == 1:
-                sprite.image.origin = (0, 0)
-            else:
-                sprite.image.origin = (32, 0)
+            pos.position[0] += moving.direction_vector[0] * mov.speed * dt / 100
+            pos.position[1] += moving.direction_vector[1] * mov.speed * dt / 100
 
+            if abs(moving.target[0] * 32 - pos.position[0]) < 0.1 * mov.speed and abs(
+                    pos.position[1] - moving.target[1] * 32) < 0.1 * mov.speed:
+                pos.position = [moving.target[0] * 32, moving.target[1] * 32]
+                self.world.remove_component(ent, MovingComponent)
+
+            # if moving.direction[0] != 0:
+            #     pos.position[0] += moving.direction[0] * mov.speed * dt / 100
+            #     if abs(moving.movement_target[0] * 32 - pos.position[0]) < 0.1 * mov.speed:
+            #         pos.position = [moving.movement_target[0] * 32, moving.movement_target[1] * 32]
+            #         self.world.remove_component(ent, MovingComponent)
+            # else:
+            #     pos.position[1] += moving.direction[1] * mov.speed * dt / 100
+            #     if abs(pos.position[1] - moving.movement_target[1] * 32) < 0.1 * mov.speed:
+            #         pos.position = [moving.movement_target[0] * 32, moving.movement_target[1] * 32]
+            #         self.world.remove_component(ent, MovingComponent)

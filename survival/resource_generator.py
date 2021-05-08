@@ -13,7 +13,7 @@ class ResourceGenerator:
     def generate_resources(self):
         for x in range(RESOURCES_AMOUNT):
             obj = self.world.create_entity()
-            sprites = ['apple.png', 'water.png', 'wood.png', 'stone.png']
+            sprites = ['apple.png', 'water.png', 'wood.png']
 
             empty_grid_pos = self.get_empty_grid_position()
             empty_pos = [empty_grid_pos[0] * 32, empty_grid_pos[1] * 32]
