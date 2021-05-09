@@ -9,8 +9,8 @@ class TileGenerator:
         [(32, 0), 1],  # Grass 2
         [(64, 0), 1],  # Grass 3
         [(96, 0), 1],  # Grass 4
-        [(64, 64), 2],  # Sand
-        [(96, 64), 2],  # Poddle
+        [(64, 64), 20],  # Sand
+        [(96, 64), 20],  # Puddle
     ]
 
     @staticmethod
