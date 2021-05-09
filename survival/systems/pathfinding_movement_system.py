@@ -5,7 +5,6 @@ from survival.components.moving_component import MovingComponent
 from survival.components.position_component import PositionComponent
 from survival.enums import Direction
 from survival.graph_search import graph_search, Action
-from survival.pathfinding import breadth_first_search
 from survival.systems.input_system import PathfindingComponent
 
 

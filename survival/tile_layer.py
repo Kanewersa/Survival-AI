@@ -18,3 +18,6 @@ class TileLayer:
                 self.image.pos = (x * 32, y * 32)
                 self.image.origin = self.tiles[y][x].origin
                 camera.draw(self.image)
+
+    def get_cost(self, pos):
+        return self.tiles[pos[1]][pos[0]].cost
