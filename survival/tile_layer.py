@@ -1,5 +1,5 @@
-from survival.image import Image
 from survival.generators.tile_generator import TileGenerator
+from survival.image import Image
 from survival.tile import Tile
 
 
