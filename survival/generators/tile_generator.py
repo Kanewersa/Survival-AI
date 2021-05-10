@@ -21,8 +21,11 @@ class TileGenerator:
     Biomes = [
         BiomePreset("Desert", min_height=0.2, min_moisture=0, min_heat=0.5, tiles=[Tiles["Grass1"], Tiles["Grass2"],
                                                                                    Tiles["Grass3"], Tiles["Grass4"]]),
+        BiomePreset("Forest", min_height=0.2, min_moisture=0.4, min_heat=0.4, tiles=[Tiles["Sand"]]),
         BiomePreset("Grassland", min_height=0.2, min_moisture=0.5, min_heat=0.3, tiles=[Tiles["Sand"]]),
-        BiomePreset("Marsh", min_height=0.1, min_moisture=0.6, min_heat=0.2, tiles=[Tiles["Puddle"]])
+        BiomePreset("Marsh", min_height=0.3, min_moisture=0.5, min_heat=0.62, tiles=[Tiles["Puddle"]]),
+        BiomePreset("Ocean", min_height=0, min_moisture=0, min_heat=0, tiles=[Tiles["Sand"]]),
+        BiomePreset("Tundra", min_height=0.2, min_moisture=0, min_heat=0, tiles=[Tiles["Puddle"]])
     ]
 
     @staticmethod
