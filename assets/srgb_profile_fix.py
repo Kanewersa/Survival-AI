@@ -1,4 +1,5 @@
 import os
+
 import pygame as pg
 
 for i in os.listdir('.'):

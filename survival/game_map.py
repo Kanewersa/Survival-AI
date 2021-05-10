@@ -24,3 +24,6 @@ class GameMap:
 
     def is_colliding(self, pos):
         return pos[0] < 0 or pos[0] >= self.width or pos[1] < 0 or pos[1] >= self.height or self.entity_layer.is_colliding(pos)
+
+    def get_cost(self, pos):
+        return self.tile_layer.get_cost(pos)

@@ -3,9 +3,9 @@ import pygame
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from survival.camera import Camera
 from survival.game_map import GameMap
-from survival.player_generator import PlayerGenerator
-from survival.resource_generator import ResourceGenerator
-from survival.world_generator import WorldGenerator
+from survival.generators.player_generator import PlayerGenerator
+from survival.generators.resource_generator import ResourceGenerator
+from survival.generators.world_generator import WorldGenerator
 
 if __name__ == '__main__':
     pygame.init()

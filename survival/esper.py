@@ -1,13 +1,11 @@
 import time as _time
-
 from functools import lru_cache as _lru_cache
+from typing import Any as _Any
+from typing import Iterable as _Iterable
 from typing import List as _List
+from typing import Tuple as _Tuple
 from typing import Type as _Type
 from typing import TypeVar as _TypeVar
-from typing import Any as _Any
-from typing import Tuple as _Tuple
-from typing import Iterable as _Iterable
-
 
 version = '1.3'
 

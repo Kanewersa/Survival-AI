@@ -1,9 +1,6 @@
-import random
-
-
 class Tile:
-    origins = [(0, 0), (32, 0), (64, 0), (96, 0)]
-
-    def __init__(self, origin=(0, 0)):
-        self.origin = random.choice(Tile.origins)
+    def __init__(self, origin: tuple = (0, 0), cost: int = 1, biome=None):
+        self.origin = origin
+        self.cost = cost
+        self.biome = biome
         self.image = None
