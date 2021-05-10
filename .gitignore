@@ -24,6 +24,7 @@
 .vscode/
 .idea/
 .idea/**/*
+.idea
 
 # Vagrant
 .vagrant/
