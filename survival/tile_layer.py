@@ -1,12 +1,14 @@
 from survival.image import Image
 from survival.generators.tile_generator import TileGenerator
+from survival.tile import Tile
 
 
 class TileLayer:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.tiles = [[TileGenerator.get_random_tile() for x in range(self.width)] for y in range(self.height)]
+        self.tiles: list[list[Tile]] = TileGenerator.generate_biome_tiles(width, height)
+        # self.tiles: list[list[Tile]] = TileGenerator.generate_random_tiles(width, height)
         self.image = Image('atlas.png')
 
     def draw(self, camera, visible_area):
