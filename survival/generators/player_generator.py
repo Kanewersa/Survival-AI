@@ -1,3 +1,4 @@
+from survival.components.OnCollisionComponent import OnCollisionComponent
 from survival.components.camera_target_component import CameraTargetComponent
 from survival.components.input_component import InputComponent
 from survival.components.movement_component import MovementComponent
@@ -14,6 +15,7 @@ class PlayerGenerator:
         world.add_component(player, pos)
         world.add_component(player, MovementComponent())
         world.add_component(player, InputComponent())
+        world.add_component(player, OnCollisionComponent())
         camera_target = CameraTargetComponent(pos)
         world.add_component(player, camera_target)
         game_map.add_entity(player, pos)

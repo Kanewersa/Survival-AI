@@ -1,5 +1,6 @@
 from enum import Enum
 from queue import PriorityQueue
+from typing import Tuple, List
 
 from survival import GameMap
 from survival.components.position_component import PositionComponent
@@ -13,7 +14,7 @@ class Action(Enum):
 
 
 class State:
-    def __init__(self, position: tuple[int, int], direction: Direction):
+    def __init__(self, position: Tuple[int, int], direction: Direction):
         self.position = position
         self.direction = direction
 
@@ -32,12 +33,12 @@ class Node:
         return self.cost == other.cost
 
 
-def get_moved_position(position: tuple[int, int], direction: Direction):
+def get_moved_position(position: Tuple[int, int], direction: Direction):
     vector = Direction.get_vector(direction)
     return position[0] + vector[0], position[1] + vector[1]
 
 
-def get_states(state: State, game_map: GameMap) -> list[tuple[Action, State, int]]:
+def get_states(state: State, game_map: GameMap) -> List[Tuple[Action, State, int]]:
     states = list()
 
     states.append((Action.ROTATE_LEFT, State(state.position, state.direction.rotate_left(state.direction)), 1))
@@ -63,7 +64,7 @@ def build_path(node: Node):
     return actions
 
 
-def heuristic(new_node: Node, goal: tuple[int, int]):
+def heuristic(new_node: Node, goal: Tuple[int, int]):
     return abs(new_node.state.position[0] - goal[0]) + abs(new_node.state.position[1] - goal[1])
 
 

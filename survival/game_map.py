@@ -22,6 +22,9 @@ class GameMap:
     def remove_entity(self, pos):
         self.entity_layer.remove_entity(pos)
 
+    def get_entity(self, pos) -> int:
+        return self.entity_layer.get_entity(pos)
+
     def is_colliding(self, pos):
         return pos[0] < 0 or pos[0] >= self.width or pos[1] < 0 or pos[1] >= self.height or self.entity_layer.is_colliding(pos)
 

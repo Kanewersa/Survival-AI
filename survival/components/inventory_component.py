@@ -1,5 +1,5 @@
 class InventoryComponent:
-    def __init__(self, maxitems):
+    def __init__(self, maxitems = 10):
         self.maxitems = maxitems
         self.items = {}
 

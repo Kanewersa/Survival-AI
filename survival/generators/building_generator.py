@@ -12,7 +12,7 @@ class BuildingGenerator:
         world.add_component(home, InventoryComponent())
 
         game_map.add_entity(home, pos)
-        sprite = SpriteComponent('stone.png')
+        sprite = SpriteComponent('tree.png')
         sprite.set_scale(2)
         world.add_component(home, sprite)
         world.add_component(home, CollisionComponent())

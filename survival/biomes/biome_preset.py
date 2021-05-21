@@ -1,10 +1,11 @@
 import random
+from typing import List
 
 from survival.tile import Tile
 
 
 class BiomePreset:
-    def __init__(self, name, min_height: float, min_moisture: float, min_heat: float, tiles: list[Tile]):
+    def __init__(self, name, min_height: float, min_moisture: float, min_heat: float, tiles: List[Tile]):
         self.name = name
         self.min_height = min_height
         self.min_moisture = min_moisture

@@ -3,6 +3,7 @@ import pygame
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from survival.camera import Camera
 from survival.game_map import GameMap
+from survival.generators.building_generator import BuildingGenerator
 from survival.generators.player_generator import PlayerGenerator
 from survival.generators.resource_generator import ResourceGenerator
 from survival.generators.world_generator import WorldGenerator
@@ -20,6 +21,7 @@ if __name__ == '__main__':
 
     world = WorldGenerator().create_world(camera, game_map)
     player = PlayerGenerator().create_player(world, game_map)
+    building = BuildingGenerator().create_home(world, game_map)
 
     ResourceGenerator(world, game_map).generate_resources()
 
