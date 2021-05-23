@@ -26,7 +26,11 @@ class CollisionSystem(esper.Processor):
                 self.world.remove_component(ent, MovingComponent)
                 onCol.callAll()
                 colliding_object: int = self.map.get_entity(moving.target)
-                if colliding_object is not None and self.world.has_component(colliding_object, OnCollisionComponent):
+
+                if colliding_object is None or not self.world.entity_exists(colliding_object):
+                    continue
+
+                if self.world.has_component(colliding_object, OnCollisionComponent):
                     self.world.component_for_entity(colliding_object, OnCollisionComponent).callAll()
 
             else:
