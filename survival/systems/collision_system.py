@@ -12,7 +12,8 @@ class CollisionSystem(esper.Processor):
         self.map = game_map
 
     def process(self, dt):
-        for ent, (pos, moving, onCol) in self.world.get_components(PositionComponent, MovingComponent, OnCollisionComponent):
+        for ent, (pos, moving, onCol) in self.world.get_components(PositionComponent, MovingComponent,
+                                                                   OnCollisionComponent):
             if moving.target is not None:
                 continue
 
@@ -24,8 +25,8 @@ class CollisionSystem(esper.Processor):
             if self.check_collision(moving.target):
                 self.world.remove_component(ent, MovingComponent)
                 onCol.callAll()
-                colliding_object : int = self.map.get_entity(moving.target)
-                if self.world.has_component(colliding_object, OnCollisionComponent):
+                colliding_object: int = self.map.get_entity(moving.target)
+                if colliding_object is not None and self.world.has_component(colliding_object, OnCollisionComponent):
                     self.world.component_for_entity(colliding_object, OnCollisionComponent).callAll()
 
             else:
