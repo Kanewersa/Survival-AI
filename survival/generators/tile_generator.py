@@ -16,8 +16,8 @@ class TileGenerator:
         "Puddle": Tile(origin=(96, 64), cost=20),
         "DarkGrass": Tile(origin=(64, 96), cost=2),
         "Water": Tile(origin=(96, 96), cost=3),
-        "Ice": Tile(origin=(0, 64), cost=2),
-        "Ice2": Tile(origin=(32, 64), cost=2),
+        "Ice": Tile(origin=(0, 96), cost=2),
+        "Ice2": Tile(origin=(32, 96), cost=2),
     }
 
     TilesValues = list(Tiles.values())
