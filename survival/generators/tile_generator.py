@@ -12,8 +12,8 @@ class TileGenerator:
         "Grass2": Tile(origin=(32, 0), cost=1),
         "Grass3": Tile(origin=(64, 0), cost=1),
         "Grass4": Tile(origin=(96, 0), cost=1),
-        "Sand": Tile(origin=(64, 64), cost=20),
-        "Puddle": Tile(origin=(96, 64), cost=20),
+        "Sand": Tile(origin=(64, 64), cost=4),
+        "Puddle": Tile(origin=(96, 64), cost=5),
     }
 
     TilesValues = list(Tiles.values())
