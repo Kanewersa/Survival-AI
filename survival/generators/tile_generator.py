@@ -14,6 +14,10 @@ class TileGenerator:
         "Grass4": Tile(origin=(96, 0), cost=1),
         "Sand": Tile(origin=(64, 64), cost=20),
         "Puddle": Tile(origin=(96, 64), cost=20),
+        "DarkGrass": Tile(origin=(64, 96), cost=2),
+        "Water": Tile(origin=(96, 96), cost=3),
+        "Ice": Tile(origin=(0, 64), cost=2),
+        "Ice2": Tile(origin=(32, 64), cost=2),
     }
 
     TilesValues = list(Tiles.values())
@@ -21,11 +25,11 @@ class TileGenerator:
     Biomes = [
         BiomePreset("Desert", min_height=0.2, min_moisture=0, min_heat=0.5, tiles=[Tiles["Grass1"], Tiles["Grass2"],
                                                                                    Tiles["Grass3"], Tiles["Grass4"]]),
-        BiomePreset("Forest", min_height=0.2, min_moisture=0.4, min_heat=0.4, tiles=[Tiles["Sand"]]),
+        BiomePreset("Forest", min_height=0.2, min_moisture=0.4, min_heat=0.4, tiles=[Tiles["DarkGrass"]]),
         BiomePreset("Grassland", min_height=0.2, min_moisture=0.5, min_heat=0.3, tiles=[Tiles["Sand"]]),
         BiomePreset("Marsh", min_height=0.3, min_moisture=0.5, min_heat=0.62, tiles=[Tiles["Puddle"]]),
-        BiomePreset("Ocean", min_height=0, min_moisture=0, min_heat=0, tiles=[Tiles["Sand"]]),
-        BiomePreset("Tundra", min_height=0.2, min_moisture=0, min_heat=0, tiles=[Tiles["Puddle"]])
+        BiomePreset("Ocean", min_height=0, min_moisture=0, min_heat=0, tiles=[Tiles["Water"]]),
+        BiomePreset("Tundra", min_height=0.2, min_moisture=0, min_heat=0, tiles=[Tiles["Ice"], Tiles["Ice2"]])
     ]
 
     @staticmethod
