@@ -1,26 +1,23 @@
 import random
 
-from enum import Enum
 from survival import GameMap
 from survival.components.OnCollisionComponent import OnCollisionComponent
 from survival.components.inventory_component import InventoryComponent
 from survival.components.position_component import PositionComponent
 from survival.components.resource_component import ResourceComponent
 from survival.components.sprite_component import SpriteComponent
+from survival.decision_tree import DecisionTree
 from survival.esper import World
+from survival.generators.resource_type import ResourceType
 from survival.settings import RESOURCES_AMOUNT
-
-
-class ResourceType(Enum):
-    FOOD = 1
-    WATER = 2
-    WOOD = 3
 
 
 class ResourceGenerator:
     def __init__(self, world, game_map):
         self.world = world
         self.map = game_map
+        self.decision_tree = DecisionTree()
+        self.built_tree = self.decision_tree.build(10)
 
     def generate_resources(self, player: int):
         for x in range(RESOURCES_AMOUNT):
@@ -37,7 +34,7 @@ class ResourceGenerator:
             resource_type = random.choice(list(ResourceType))
             sprite = SpriteComponent(sprites[resource_type])
             col = OnCollisionComponent()
-            col.addCallback(self.remove_resource, world=self.world, game_map=self.map, entity=obj, player=player)
+            col.addCallback(self.remove_resource, world=self.world, game_map=self.map, resource_ent=obj, player=player, decision_tree=self.decision_tree)
             self.world.add_component(obj, pos)
             self.world.add_component(obj, sprite)
             self.world.add_component(obj, col)
@@ -51,10 +48,12 @@ class ResourceGenerator:
         return free_pos
 
     @staticmethod
-    def remove_resource(world: World, game_map: GameMap, entity: int, player: int):
-        pos = world.component_for_entity(entity, PositionComponent)
-        resource = world.component_for_entity(entity, ResourceComponent)
+    def remove_resource(world: World, game_map: GameMap, resource_ent: int, player: int, decision_tree: DecisionTree):
+        pos = world.component_for_entity(resource_ent, PositionComponent)
+        resource = world.component_for_entity(resource_ent, ResourceComponent)
         inventory = world.component_for_entity(player, InventoryComponent)
+        answer = decision_tree.predict_answer(resource)
+        print(answer)
         inventory.add_item(resource.resource_type, 1)
         game_map.remove_entity(pos.grid_position)
-        world.delete_entity(entity, immediate=True)
+        world.delete_entity(resource_ent, immediate=True)

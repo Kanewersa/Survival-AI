@@ -14,8 +14,8 @@ class MovementSystem(esper.Processor):
                                                                          MovingComponent,
                                                                          SpriteComponent):
             cost = self.map.get_cost(moving.target)
-            pos.position[0] += moving.direction_vector[0] * mov.speed * dt    / 100 / cost
-            pos.position[1] += moving.direction_vector[1] * mov.speed * dt   / 100 / cost
+            pos.position[0] += moving.direction_vector[0] * mov.speed * dt / 100 / cost
+            pos.position[1] += moving.direction_vector[1] * mov.speed * dt / 100 / cost
 
             if abs(moving.target[0] * 32 - pos.position[0]) < 0.1 * mov.speed and abs(
                     pos.position[1] - moving.target[1] * 32) < 0.1 * mov.speed:

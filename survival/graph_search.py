@@ -4,7 +4,9 @@ from typing import Tuple, List
 
 from survival import GameMap
 from survival.components.position_component import PositionComponent
+from survival.components.resource_component import ResourceComponent
 from survival.enums import Direction
+from survival.esper import World
 
 
 class Action(Enum):
@@ -38,7 +40,7 @@ def get_moved_position(position: Tuple[int, int], direction: Direction):
     return position[0] + vector[0], position[1] + vector[1]
 
 
-def get_states(state: State, game_map: GameMap) -> List[Tuple[Action, State, int]]:
+def get_states(state: State, game_map: GameMap, world: World) -> List[Tuple[Action, State, int]]:
     states = list()
 
     states.append((Action.ROTATE_LEFT, State(state.position, state.direction.rotate_left(state.direction)), 1))
@@ -47,6 +49,10 @@ def get_states(state: State, game_map: GameMap) -> List[Tuple[Action, State, int
     target_position = get_moved_position(state.position, state.direction)
     if not game_map.is_colliding(target_position):
         states.append((Action.MOVE, State(target_position, state.direction), game_map.get_cost(target_position)))
+    elif game_map.get_entity(target_position) is not None:
+        ent = game_map.get_entity(target_position)
+        if world.has_component(ent, ResourceComponent):
+            states.append((Action.MOVE, State(target_position, state.direction), 3))
 
     return states
 
@@ -68,7 +74,7 @@ def heuristic(new_node: Node, goal: Tuple[int, int]):
     return abs(new_node.state.position[0] - goal[0]) + abs(new_node.state.position[1] - goal[1])
 
 
-def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple):
+def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple, world: World):
     fringe = PriorityQueue()
     explored = list()
 
@@ -97,7 +103,7 @@ def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple):
         explored_states.add((tuple(node.state.position), node.state.direction))
 
         # Get all possible states
-        for state in get_states(node.state, game_map):
+        for state in get_states(node.state, game_map, world):
             sub_state = (tuple(state[1].position), state[1].direction)
             new_node = Node(state=state[1],
                             parent=node,

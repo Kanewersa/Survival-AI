@@ -2,7 +2,7 @@ import pygame.font
 
 from survival import settings
 from survival.components.inventory_component import InventoryComponent
-from survival.generators.resource_generator import ResourceType
+from survival.generators.resource_type import ResourceType
 from survival.image import Image
 
 
