@@ -18,5 +18,8 @@ class EntityLayer:
     def remove_entity(self, pos):
         self.tiles[pos[1]][pos[0]] = None
 
+    def get_entity(self, pos) -> int:
+        return self.tiles[pos[1]][pos[0]]
+
     def is_colliding(self, pos):
         return self.tiles[pos[1]][pos[0]] is not None

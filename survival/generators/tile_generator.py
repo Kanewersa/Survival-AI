@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 from survival.biomes.biome_data import BiomeData
 from survival.biomes.biome_preset import BiomePreset
@@ -38,7 +39,7 @@ class TileGenerator:
         return Tile(origin=tile.origin, cost=tile.cost)
 
     @staticmethod
-    def generate_random_tiles(width: int, height: int) -> list[list[Tile]]:
+    def generate_random_tiles(width: int, height: int) -> List[List[Tile]]:
         return [[TileGenerator.get_random_tile() for _ in range(width)] for _ in range(height)]
 
     @staticmethod
