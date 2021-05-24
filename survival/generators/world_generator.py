@@ -15,7 +15,7 @@ class WorldGenerator:
         world = esper.World()
         world.add_processor(InputSystem(camera))
         world.add_processor(CameraSystem(camera))
-        world.add_processor(MovementSystem(), priority=1)
+        world.add_processor(MovementSystem(game_map), priority=1)
         world.add_processor(CollisionSystem(game_map), priority=2)
         world.add_processor(DrawSystem(camera))
         world.add_processor(TimeSystem())
