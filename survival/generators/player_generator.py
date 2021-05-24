@@ -1,6 +1,7 @@
 from survival.components.OnCollisionComponent import OnCollisionComponent
 from survival.components.camera_target_component import CameraTargetComponent
 from survival.components.input_component import InputComponent
+from survival.components.inventory_component import InventoryComponent
 from survival.components.movement_component import MovementComponent
 from survival.components.position_component import PositionComponent
 from survival.components.sprite_component import SpriteComponent
@@ -16,6 +17,7 @@ class PlayerGenerator:
         world.add_component(player, MovementComponent())
         world.add_component(player, InputComponent())
         world.add_component(player, OnCollisionComponent())
+        world.add_component(player, InventoryComponent())
         camera_target = CameraTargetComponent(pos)
         world.add_component(player, camera_target)
         game_map.add_entity(player, pos)
