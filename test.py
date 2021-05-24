@@ -3,7 +3,7 @@ import random
 
 def generate_data():
     f = open("data.txt", "w")
-    for i in range(1000):
+    for i in range(100):
         weight = random.randint(0, 11)
         eatable = bool(random.randint(0, 1))
         toughness = random.randint(0, 3)

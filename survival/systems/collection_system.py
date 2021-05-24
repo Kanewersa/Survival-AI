@@ -17,5 +17,4 @@ class ResourceCollectionSystem(esper.Processor):
 
             if collect.action == Action.MOVE:
                 self.world.remove_component(ent, CollectingResourceComponent)
-                print("HERE")
                 self.world.add_component(ent, MovingComponent())

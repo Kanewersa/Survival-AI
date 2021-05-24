@@ -11,7 +11,6 @@ from survival.systems.input_system import PathfindingComponent
 class CollectingResourceComponent:
     def __init__(self, action):
         self.action = action
-        print(action)
 
 
 class PathfindingMovementSystem(esper.Processor):

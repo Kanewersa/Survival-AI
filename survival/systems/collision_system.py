@@ -21,7 +21,6 @@ class CollisionSystem(esper.Processor):
 
             vector = Direction.get_vector(pos.direction)
             moving.target = tuple(map(operator.add, vector, pos.grid_position))
-            print(moving.target)
             moving.direction_vector = vector
             if self.check_collision(moving.target):
                 self.world.remove_component(ent, MovingComponent)
