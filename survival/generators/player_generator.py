@@ -21,7 +21,7 @@ class PlayerGenerator:
         world.add_component(player, InventoryComponent())
         camera_target = CameraTargetComponent(pos)
         world.add_component(player, camera_target)
-        # world.add_component(player, AutomationComponent())
+        world.add_component(player, AutomationComponent())
         game_map.add_entity(player, pos)
         sprite = SpriteComponent('stevenson.png')
         sprite.set_scale(1)

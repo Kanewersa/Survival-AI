@@ -54,6 +54,6 @@ class ResourceGenerator:
         inventory = world.component_for_entity(player, InventoryComponent)
         answer = decision_tree.predict_answer(resource)
         # print(answer)
-        inventory.add_item(resource.resource_type, 1)
+        inventory.add_item(ResourceType.get_from_string(answer), 1)
         game_map.remove_entity(pos.grid_position)
         world.delete_entity(resource_ent, immediate=True)
