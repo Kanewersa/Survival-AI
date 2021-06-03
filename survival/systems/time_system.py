@@ -9,4 +9,3 @@ class TimeSystem(esper.Processor):
             if time.timer > 1000:
                 time.add_time(1)
                 time.timer = 0
-                print(time)

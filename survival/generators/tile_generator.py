@@ -76,3 +76,6 @@ class TileGenerator:
             found_biome = TileGenerator.Biomes[0]
 
         return found_biome
+
+
+# {"weight": 2, "size": 3, "eatable": true, "resource": "food"}

@@ -6,6 +6,7 @@ from survival.components.movement_component import MovementComponent
 from survival.components.position_component import PositionComponent
 from survival.components.sprite_component import SpriteComponent
 from survival.components.time_component import TimeComponent
+from survival.systems.automation_system import AutomationComponent
 
 
 class PlayerGenerator:
@@ -20,6 +21,7 @@ class PlayerGenerator:
         world.add_component(player, InventoryComponent())
         camera_target = CameraTargetComponent(pos)
         world.add_component(player, camera_target)
+        world.add_component(player, AutomationComponent())
         game_map.add_entity(player, pos)
         sprite = SpriteComponent('stevenson.png')
         sprite.set_scale(1)
