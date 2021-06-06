@@ -1,4 +1,6 @@
+import json
 import random
+from pathlib import Path
 from typing import List
 
 from survival.biomes.biome_data import BiomeData
@@ -44,11 +46,24 @@ class TileGenerator:
 
     @staticmethod
     def generate_biome_tiles(width: int, height: int):
-        seed = random.randint(0, 9999999)
+        seed = random.randint(1, 10)
         octaves = 10
-        height_map = generate_noise(width, height, octaves, seed)
-        moisture_map = generate_noise(width, height, octaves, seed)
-        heat_map = generate_noise(width, height, octaves, seed)
+        file_name = f'seeds/{seed}.bin'
+        biomes_file = Path(file_name)
+        if biomes_file.is_file():
+            with open(file_name, 'r') as f:
+                data = json.load(f)
+                height_map = data[0]
+                moisture_map = data[1]
+                heat_map = data[2]
+        else:
+            height_map = generate_noise(width, height, octaves, seed)
+            moisture_map = generate_noise(width, height, octaves, seed)
+            heat_map = generate_noise(width, height, octaves, seed)
+            data = [height_map, moisture_map, heat_map]
+            Path('seeds').mkdir(exist_ok=True)
+            with open(file_name, 'w') as f:
+                json.dump(data, f)
 
         return [[TileGenerator.get_biome(height_map[y][x], moisture_map[y][x], heat_map[y][x]).get_new_tile() for x in
                  range(width)] for y in range(height)]
@@ -76,6 +91,3 @@ class TileGenerator:
             found_biome = TileGenerator.Biomes[0]
 
         return found_biome
-
-
-# {"weight": 2, "size": 3, "eatable": true, "resource": "food"}
