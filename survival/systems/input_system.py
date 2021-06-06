@@ -24,7 +24,7 @@ class InputSystem(esper.Processor):
                 if not self.world.has_component(ent, PathfindingComponent):
                     target_ent = self.game_map.get_entity([int(pos[0] / 32), int(pos[1]/ 32)])
                     if target_ent is not None and self.world.has_component(target_ent, ResourceComponent):
-                        self.world.add_component(ent, PathfindingComponent(pos, True))
+                        self.world.add_component(ent, PathfindingComponent(pos))
                     else:
                         self.world.add_component(ent, PathfindingComponent(pos))
 

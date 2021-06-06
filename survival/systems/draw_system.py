@@ -7,10 +7,10 @@ from survival.user_interface import UserInterface
 class DrawSystem(esper.Processor):
     def __init__(self, camera):
         self.camera = camera
-        self.ui = None
+        self.ui = UserInterface(self.camera.window)
 
     def initialize_interface(self, inventory):
-        self.ui = UserInterface(self.camera.window, inventory)
+        self.ui.load_inventory(inventory)
 
     def process(self, dt):
         for ent, (sprite, pos) in self.world.get_components(SpriteComponent, PositionComponent):

@@ -7,6 +7,8 @@ from survival.components.resource_component import ResourceComponent
 
 class AutomationComponent:
     pass
+    # def __init__(self):
+    #     self.resources = []
 
 
 class AutomationSystem(esper.Processor):

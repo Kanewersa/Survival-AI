@@ -8,11 +8,6 @@ from survival.graph_search import graph_search, Action
 from survival.systems.input_system import PathfindingComponent
 
 
-class CollectingResourceComponent:
-    def __init__(self, action):
-        self.action = action
-
-
 class PathfindingMovementSystem(esper.Processor):
     def __init__(self, game_map):
         self.game_map = game_map
@@ -21,14 +16,9 @@ class PathfindingMovementSystem(esper.Processor):
         for ent, (pos, pathfinding, movement) in self.world.get_components(PositionComponent, PathfindingComponent,
                                                                            MovementComponent):
             if pathfinding.path is None:
-                pathfinding.path = graph_search(self.game_map, pos, pathfinding.target_grid_pos, self.world)
+                pathfinding.path, cost = graph_search(self.game_map, pos, pathfinding.target_grid_pos, self.world)
 
             if len(pathfinding.path) < 1:
-                self.world.remove_component(ent, PathfindingComponent)
-                continue
-
-            if pathfinding.searching_for_resource and len(pathfinding.path) == 1:
-                self.world.add_component(ent, CollectingResourceComponent(pathfinding.path.pop(0)))
                 self.world.remove_component(ent, PathfindingComponent)
                 continue
 

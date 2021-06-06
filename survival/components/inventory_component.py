@@ -19,3 +19,12 @@ class InventoryComponent:
 
     def has_item(self, item):
         return item in self.items and self.items[item] != 0
+
+    def total_items_count(self):
+        total = 0
+        for item, value in self.items.items():
+            total += value
+        return total
+
+    def clear(self):
+        self.items = {}

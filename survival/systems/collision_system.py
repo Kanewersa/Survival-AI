@@ -4,6 +4,7 @@ from survival import esper
 from survival.components.OnCollisionComponent import OnCollisionComponent
 from survival.components.moving_component import MovingComponent
 from survival.components.position_component import PositionComponent
+from survival.components.learning_component import LearningComponent
 from survival.enums import Direction
 
 
@@ -18,7 +19,6 @@ class CollisionSystem(esper.Processor):
                 continue
 
             moving.checked_collision = True
-
             vector = Direction.get_vector(pos.direction)
             moving.target = tuple(map(operator.add, vector, pos.grid_position))
             moving.direction_vector = vector

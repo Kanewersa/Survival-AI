@@ -4,8 +4,11 @@ import pygame
 
 
 class Image:
-    def __init__(self, filename, pos=(0, 0), scale=1):
-        self.texture = pygame.image.load(os.path.join('..', 'assets', filename)).convert_alpha()
+    def __init__(self, filename='', pos=(0, 0), scale=1, surface=None):
+        if surface is None:
+            self.texture = pygame.image.load(os.path.join('..', 'assets', filename)).convert_alpha()
+        else:
+            self.texture = surface
         self.image = self.texture
         self.origin = (0, 0)
         self.pos = pos

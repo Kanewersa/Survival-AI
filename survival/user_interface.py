@@ -7,13 +7,13 @@ from survival.image import Image
 
 
 class UserInterface:
-    def __init__(self, window, inventory: InventoryComponent):
+    def __init__(self, window):
         self.width = settings.SCREEN_WIDTH
         self.height = settings.SCREEN_HEIGHT
         self.window = window
         self.pos = (self.width - 240, 50)
         self.scale = 2
-        self.inventory = inventory
+        self.inventory: InventoryComponent = None
         self.images = {
             ResourceType.FOOD: Image('apple.png', self.pos, self.scale),
             ResourceType.WATER: Image('water.png', self.pos, self.scale),
@@ -25,6 +25,9 @@ class UserInterface:
             i += 1
         self.slot_image = Image('ui.png', self.pos, scale=2)
         self.font = pygame.font.SysFont('Comic Sans MS', 20)
+
+    def load_inventory(self, inventory: InventoryComponent):
+        self.inventory = inventory
 
     def update(self):
         pass

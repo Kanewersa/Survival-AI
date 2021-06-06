@@ -28,6 +28,9 @@ class Processor:
     def process(self, *args, **kwargs):
         raise NotImplementedError
 
+    def reset(self, *args, **kwargs):
+        pass
+
 
 class World:
     """A World object keeps track of all Entities, Components, and Processors.
@@ -45,6 +48,14 @@ class World:
         if timed:
             self.process_times = {}
             self._process = self._timed_process
+
+    @property
+    def processors(self):
+        return self._processors
+
+    @property
+    def entities(self):
+        return self._entities
 
     def clear_cache(self) -> None:
         self.get_component.cache_clear()

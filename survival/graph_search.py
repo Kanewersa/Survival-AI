@@ -2,7 +2,8 @@ from enum import Enum
 from queue import PriorityQueue
 from typing import Tuple, List
 
-from survival import GameMap
+from survival.components.direction_component import DirectionChangeComponent
+from survival.components.moving_component import MovingComponent
 from survival.components.position_component import PositionComponent
 from survival.components.resource_component import ResourceComponent
 from survival.enums import Direction
@@ -13,6 +14,33 @@ class Action(Enum):
     ROTATE_LEFT = 0
     ROTATE_RIGHT = 1
     MOVE = 2
+
+    @staticmethod
+    def from_array(action):
+        if action[0] == 1:
+            return Action.MOVE
+        if action[1] == 1:
+            return Action.ROTATE_LEFT
+        if action[2] == 1:
+            return Action.ROTATE_RIGHT
+        raise Exception("Unknown action.")
+
+    @staticmethod
+    def perform(world, entity, action):
+        if world.has_component(entity, MovingComponent):
+            raise Exception(f"Entity was already moving. Could not perform action: {action}")
+        if world.has_component(entity, DirectionChangeComponent):
+            raise Exception(f"Entity was already rotating. Could not perform action: {action}")
+
+        if action == Action.ROTATE_LEFT:
+            world.add_component(entity, DirectionChangeComponent(
+                Direction.rotate_left(world.component_for_entity(entity, PositionComponent).direction)))
+        elif action == Action.ROTATE_RIGHT:
+            world.add_component(entity, DirectionChangeComponent(
+                Direction.rotate_right(world.component_for_entity(entity, PositionComponent).direction)))
+        else:
+            world.add_component(entity, MovingComponent())
+        return action
 
 
 class State:
@@ -40,7 +68,7 @@ def get_moved_position(position: Tuple[int, int], direction: Direction):
     return position[0] + vector[0], position[1] + vector[1]
 
 
-def get_states(state: State, game_map: GameMap, world: World) -> List[Tuple[Action, State, int]]:
+def get_states(state: State, game_map, world: World) -> List[Tuple[Action, State, int]]:
     states = list()
 
     states.append((Action.ROTATE_LEFT, State(state.position, state.direction.rotate_left(state.direction)), 1))
@@ -58,23 +86,25 @@ def get_states(state: State, game_map: GameMap, world: World) -> List[Tuple[Acti
 
 
 def build_path(node: Node):
+    cost = 0
     actions = [node.action]
     parent = node.parent
 
     while parent is not None:
         if parent.action is not None:
             actions.append(parent.action)
+            cost += parent.cost
         parent = parent.parent
 
     actions.reverse()
-    return actions
+    return actions, cost
 
 
 def heuristic(new_node: Node, goal: Tuple[int, int]):
     return abs(new_node.state.position[0] - goal[0]) + abs(new_node.state.position[1] - goal[1])
 
 
-def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple, world: World):
+def graph_search(game_map, start: PositionComponent, goal: tuple, world: World):
     fringe = PriorityQueue()
     explored = list()
 
@@ -88,7 +118,7 @@ def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple, world
     while True:
         # No solutions found
         if fringe.empty():
-            return []
+            return [], 0
 
         node = fringe.get()
         node_priority = node[0]
@@ -109,7 +139,7 @@ def graph_search(game_map: GameMap, start: PositionComponent, goal: tuple, world
                             parent=node,
                             action=state[0],
                             cost=(state[2] + node.cost))
-            
+
             priority = new_node.cost + heuristic(new_node, goal)
             if sub_state not in fringe_states and sub_state not in explored_states:
                 fringe.put((priority, new_node))
