@@ -20,7 +20,7 @@ class ConsumptionSystem(esper.Processor):
                 # If no item was picked up
                 if cons.last_inventory_state == inventory.total_items_count():
                     learning: LearningComponent = self.world.component_for_entity(ent, LearningComponent)
-                    learning.reward = -10
+                    learning.reward += -10
                     learning.done = True
                 cons.last_inventory_state = inventory.total_items_count()
             else:

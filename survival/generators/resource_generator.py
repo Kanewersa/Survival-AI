@@ -59,7 +59,7 @@ class ResourceGenerator:
         world.delete_entity(resource_ent, immediate=True)
         if world.has_component(player, LearningComponent):
             learning = world.component_for_entity(player, LearningComponent)
-            learning.reward = 10
+            learning.reward += 10
             learning.score += 1
             ResourceGenerator.resources_amount -= 1
             if ResourceGenerator.resources_amount == 0:

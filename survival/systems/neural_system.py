@@ -17,7 +17,7 @@ from survival.model import LinearQNetwork, QTrainer
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
 LR = 0.001
-LEARN = True
+LEARN = False
 
 
 class NeuralSystem(esper.Processor):
@@ -34,6 +34,7 @@ class NeuralSystem(esper.Processor):
             self.starting_epsilon = -1
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
         self.utils = LearningUtils()
+        self.best_action = None
 
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
@@ -68,9 +69,14 @@ class NeuralSystem(esper.Processor):
                                                                                TimeComponent, LearningComponent):
             if not learning.made_step:
                 learning.reset()
+                self.best_action = None
 
                 # Get the closest resource | [entity, path, cost]
                 resource: [int, list, int] = self.game_map.find_nearest_resource(self.world, ent, pos)
+
+                if resource is not None:
+                    # If resource was found get the best move chosen by A*
+                    self.best_action = resource[1][0]
 
                 # Get current entity state
                 old_state = get_state(self, ent, resource)
@@ -81,6 +87,10 @@ class NeuralSystem(esper.Processor):
                 # Perform the action
                 act = Action.perform(self.world, ent, Action.from_array(action))
                 self.utils.append_action(act, pos)
+
+                # Add reward if chosen action was the best action
+                if act == self.best_action:
+                    learning.reward += 1
                 continue
 
             # Wait for the action to complete
